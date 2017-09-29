@@ -1,6 +1,7 @@
  #include <stdio.h>
 int main ()
 {
+	// эта программа не сможет вывести строку abacaba, например ... только aba 
 	char ch, c;
 	int num;
 	printf (" enter character: ");
