@@ -21,6 +21,9 @@ int main (int argc, char *argv[])
 	}
 	int status = 0;
 	size_t len = 0;
+	/*
+	fixit: магические числа: нужно вынести 256 в именованную константу
+	*/
 	char buf[256];
 	char *args [256];
 	char *line = NULL;
@@ -32,9 +35,15 @@ int main (int argc, char *argv[])
 		read = getline (&line, &len, fd);
 		args[0] = (char *) calloc (256, sizeof (char));
 		len = sscanf (line, "%s %s", buf, args[0]);
+		/*
+		что, если аргументы разделены несколькими пробелами?
+		*/
 		tmpptr = line + strlen(args[0]) + strlen(buf) + 1;
 		sec = atoi (buf);
 		int j = 1;
+		/*
+		fixit: вынесите код разбиения строки на отдельные токены в отдельную ф-и
+		*/
 		while (sscanf (tmpptr, "%s", buf) != EOF) {
 			args[j] = (char *) calloc (256, sizeof (char));
 			strcpy (args[j], buf);
@@ -49,6 +58,9 @@ int main (int argc, char *argv[])
 				perror ("exec error");
 				return -1;
 			}
+			/*
+			fixit: давайте перепишем код без использования goto
+			*/
 			goto end;
 		}
 	}
