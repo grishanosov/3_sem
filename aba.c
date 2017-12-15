@@ -1,16 +1,30 @@
- #include <stdio.h>
-int main ()
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+void GenerateString(int n, char* string);
+
+int main()
 {
-	// эта программа не сможет вывести строку abacaba, например ... только aba 
-	char ch, c;
-	int num;
-	printf (" enter character: ");
-	scanf ("%c" , &ch);
-	for (c = 'a'; ch >= c; c++)
-	printf("%c", c);
-	for (c = ch - 1; c >= 'a'; c--)
-	printf ("%c" , c);
-	printf ("\n");
+	int n;
+	scanf("%d", &n);
+	char* string = malloc(sizeof(char) * (1 << n));
+	GenerateString(n, string);	
+	free(string);
 	return 0;
 }
 
+void GenerateString(int n, char* string)
+{
+	*string = 'a';
+	int len, i;
+	for (i = 1; i < n; i++)
+	{
+		len = strlen(string);
+		string[len] = 'a' + i;
+		strncpy(string + len + 1, string, (1 << i) - 1);
+		len = strlen(string);
+		string[len] = '\0';
+	}
+	printf("%s\n", string);
+}
